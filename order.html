@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ar">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>فلاشة الذكاء الاصطناعي - اطلب الآن</title>
+<style>
+  body{font-family: Tahoma, Arial, sans-serif;background:#f7f7f8;color:#111;direction:rtl}
+  .wrap{max-width:760px;margin:20px auto;padding:18px;background:#fff;border-radius:10px;box-shadow:0 6px 20px rgba(0,0,0,0.08)}
+  h1{font-size:20px;margin:0 0 8px}
+  .price{font-size:22px;color:#c0392b;font-weight:700}
+  .grid{display:grid;grid-template-columns:1fr 300px;gap:18px}
+  img{width:100%;border-radius:8px}
+  ul{padding-left:18px;margin:8px 0 16px}
+  label{display:block;margin:8px 0 4px;font-weight:600}
+  input,textarea,select{width:100%;padding:10px;border:1px solid #ddd;border-radius:6px;font-size:14px}
+  .btn{display:inline-block;padding:12px 18px;border-radius:8px;border:none;font-weight:700;cursor:pointer}
+  .btn-submit{background:#27ae60;color:#fff}
+  .btn-wp{background:#25D366;color:#fff}
+  .note{font-size:13px;color:#555;margin-top:10px}
+  @media(max-width:800px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="grid">
+    <div>
+      <h1>⚡🤖 فلاشة الذكاء الاصطناعي – 64 جيجا</h1>
+      <p class="price">350 جنيه فقط + مصاريف الشحن</p>
+      <img src="https://via.placeholder.com/600x400?text=AI+Flash+64GB" alt="فلاشة الذكاء الاصطناعي">
+      <ul>
+        <li>تعريف شامل ومبسط عن الذكاء الاصطناعي</li>
+        <li>كيفية صناعة المحتوى (نص/صورة/فيديو)</li>
+        <li>تطبيقات الصوت وتحويل النص لكلام طبيعي</li>
+        <li>كورس بايثون وMachine Learning وكورس للأطفال</li>
+        <li>تشغيل على الكمبيوتر والموبايل + ضمان 3 سنوات</li>
+      </ul>
+      <p class="note">الكمية محدودة — الضمان 3 سنوات — تشغيل فوري بعد الاستلام.</p>
+    </div>
+
+    <div>
+      <form id="orderForm" onsubmit="return handleSubmit(event)">
+        <label>الاسم الكامل *</label>
+        <input id="name" required />
+
+        <label>رقم الموبايل *</label>
+        <input id="phone" required pattern="[0-9+\- ]{7,}" />
+
+        <label>المحافظة *</label>
+        <select id="governorate" required>
+          <option value="">اختر المحافظة</option>
+          <option>الإسكندرية</option><option>القاهرة</option><option>الجيزة</option>
+          <option>الشرقية</option><option>الدقهلية</option><option>غيرها</option>
+        </select>
+
+        <label>العنوان (تفصيلي)</label>
+        <textarea id="address" rows="3"></textarea>
+
+        <label>الكمية</label>
+        <input id="qty" type="number" value="1" min="1" />
+
+        <label>طريقة الدفع</label>
+        <select id="pay">
+          <option>دفع عند الاستلام</option>
+          <option>تحويل بنكي</option>
+        </select>
+
+        <label>ملاحظة</label>
+        <textarea id="note" rows="2"></textarea>
+
+        <div style="margin-top:12px">
+          <button type="submit" class="btn btn-submit">أطلب الآن (إرسال بريد)</button>
+          <button type="button" class="btn btn-wp" onclick="sendWhatsApp()">أطلب عبر واتساب</button>
+        </div>
+
+        <p class="note">البيانات تُرسل تلقائياً لبريدنا أو تفتح واتساب للتواصل.</p>
+      </form>
+
+      <div id="thanks" style="display:none;margin-top:12px;padding:12px;background:#ecf9f1;border-radius:8px;color:#155724">
+        شكراً! تم إرسال طلبك. هنتواصل معك في أقرب وقت.
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const SELLER_EMAIL = "mounirsamir@hotmail.com";
+  const WA_NUMBER = "201273806428";
+  function handleSubmit(e){
+    e.preventDefault();
+    const data = collect();
+    const subject = encodeURIComponent('طلب فلاشة AI - ' + data.name);
+    const body = encodeURIComponent(
+      `أنا مهتم بفلاشة الذكاء الاصطناعي\n\n` +
+      `الاسم: ${data.name}\n` +
+      `رقم: ${data.phone}\n` +
+      `الكمية: ${data.qty}\n` +
+      `المحافظة: ${data.governorate}\n` +
+      `العنوان: ${data.address}\n` +
+      `طريقة الدفع: ${data.pay}\n` +
+      `ملاحظات: ${data.note}\n`
+    );
+    window.location.href = `mailto:${SELLER_EMAIL}?subject=${subject}&body=${body}`;
+    document.getElementById('thanks').style.display = 'block';
+    return false;
+  }
+  function collect(){
+    return {
+      name: document.getElementById('name').value.trim(),
+      phone: document.getElementById('phone').value.trim(),
+      governorate: document.getElementById('governorate').value,
+      address: document.getElementById('address').value.trim(),
+      qty: document.getElementById('qty').value,
+      pay: document.getElementById('pay').value,
+      note: document.getElementById('note').value.trim()
+    };
+  }
+  function sendWhatsApp(){
+    const d = collect();
+    const text = encodeURIComponent(
+      `مرحبًا\nأنا مهتم بفلاشة "الذكاء الاصطناعي 64GB"\n`+
+      `الاسم: ${d.name}\nرقم: ${d.phone}\nالكمية: ${d.qty}\n`+
+      `المحافظة: ${d.governorate}\nالعنوان: ${d.address}\nطريقة الدفع: ${d.pay}\nملاحظات: ${d.note}`
+    );
+    window.open(`https://wa.me/${WA_NUMBER}?text=${text}`, '_blank');
+  }
+</script>
+</body>
+</html>
